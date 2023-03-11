@@ -1,0 +1,119 @@
+.body{
+    background: url('https://img.freepik.com/foto-gratis/composicion-flat-lay-objetos-cine_23-2148115916.jpg?w=740&t=st=1678560333~exp=1678560933~hmac=5d52fa95463695ca2db7cd6002afc6dfde54e29b1e1aae29ef21dc8fee89bf1e') no-repeat center center fixed;
+    background-size: cover;
+  }
+  
+  .contenedor {
+    background:  #000000bf;
+    display: flex;
+    justify-content: center;
+    height: 750px;
+  }
+  
+  .contenedor .form {
+    width: 450px;
+    padding: 24px;
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+    background: #181b20;
+    margin-top: 80px;
+    height: 600px;
+  }
+  
+  .contenedor .form .txt {
+    font-weight: 400;
+    font-size: 16px;
+    text-align: center;
+    color: #ffffff;
+  }
+  
+  .contenedor .form .titulo {
+    font-size: 36px;
+    text-align: center;
+    letter-spacing: -2%;
+    line-height: 44px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  
+  .contenedor .form .inputContenedor label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    margin-bottom: 6px;
+    color: #ffffff;
+  }
+  
+  .contenedor .form .inputContenedor input {
+    display: block;
+    width: 100%;
+    padding: 10px 14px 10px 14px;
+    border-radius: 10px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    background-color: #ffffff;
+    border: 0.5px solid #8d666a;
+  }
+  
+  .contenedor .form .inputContenedor span {
+    font-size: 15px
+  }
+  
+  .contenedor .form .inputContenedor input::placeholder {
+    color: #810309;
+  }
+  
+  .contenedor .form .submitButton,
+  .contenedor .form .googleButton {
+    padding: 10px 18px;
+    height: 44px;
+    background: #e50914;
+    border: 1px solid #3b1313;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  
+  .contenedor .form .googleButton {
+    background: #ffffff;
+    border: 1px solid #d0d5dd;
+    color: #344054;
+  }
+  
+  .contenedor .form .googleButton{
+    background: #ffffff;
+    border: 1px solid #d0d5dd;
+    color:#1e2127;
+  }
+  .contenedor .form .googleButton .contenido {
+    display:flex;
+  }
+  
+  .contenedor .form .googleButton span {
+    padding: 0 80px
+  }
+  
+  .contenedor .form .googleButton img{
+    width: 25px;
+    height:25px;
+  }
+  
+  .contenedor .form .loginRedirect {
+    font-weight: 500;
+    font-size: 14px;
+    color: #ffffff;
+    margin-bottom: 5px;
+  }
+  
+  .contenedor .form .loginRedirect .redirectLink {
+    font-weight: 600;
+    color: #1e62d8;
+    text-decoration: underline;
+  }
