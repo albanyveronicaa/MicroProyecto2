@@ -8,6 +8,7 @@ import {
 import { useState } from "react";
 
 export function RegisterPage() {
+  
   const navigate = useNavigate();
 
   const [formData, setData] = useState({});
@@ -56,14 +57,14 @@ export function RegisterPage() {
                   src="https://www.svgrepo.com/show/355037/google.svg"
                   alt=""
                 />
-                <span class="text">Continuar con Google</span>
+                <span>Continuar con Google</span>
               </div>
             </button>
           </div>
 
           <p className={styles.txt}>
-            ------------------------------O------------------------------ Ingresar con tu correo
-            y contraseña
+            ------------------------------O------------------------------
+            Ingresar con tu correo y contraseña
           </p>
 
           <div className={styles.inputContenedor}>

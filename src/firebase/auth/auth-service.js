@@ -5,7 +5,7 @@ import {
     createUserWithEmailAndPassword,
     getAdditionalUserInfo} 
     from "firebase/auth";
-import { googleProvider } from "../../../Firebase/config";
+import { googleProvider, auth } from "../config";
 import { crearUsuario } from "../../firebase/db/users-service";
 
 
@@ -16,10 +16,10 @@ export const signInWithGoogle = async () => {
        const  {usuarioNuevo} = getAdditionalUserInfo(resultado);
        
        if(usuarioNuevo){
-        await crearPerfilUsuario(resultado.user.uid, {
-            nombre: resultado.user.displayName,
-            correo: resultado.user.email,
-            edad: 0,
+        await crearUsuario(resultado.user.uid, {
+            name: resultado.user.displayName,
+            email: resultado.user.email,
+            age: 0,
             peliculas_favoritas: '' 
         })
        }
@@ -28,10 +28,23 @@ export const signInWithGoogle = async () => {
     }
 };
 
-//TODO
-export const signWithEmailAndPassword = async () => {};
+export const signWithEmailAndPassword = async (
+    email, 
+    password, 
+    extraData
+    ) => {
+    try{
+       const resultado= await createUserWithEmailAndPassword(auth, email, password);
+       console.log("Registrar email y contraseña", resultado)
+       await crearUsuario(resultado.user.uid, {
+        email,
+        ...extraData
+       });
+    }catch(error){
+        console.log(error)
+    }
+}
 
-//TODO
 export const logout = async () => {
     try{
         await signOut(auth);
@@ -48,7 +61,7 @@ export const registerWithEmailAndPassword = async (
     ) => {
     try{
        const resultado= await createUserWithEmailAndPassword(auth, email, password);
-       console.log("Registrar correo y contraseña", resultado)
+       console.log("Registrar email y contraseña", resultado)
        await crearUsuario(resultado.user.uid, {
         email,
         ...extraData

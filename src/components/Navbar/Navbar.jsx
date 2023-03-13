@@ -1,11 +1,25 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { HOME_URL, LOGIN_URL, REGISTER_URL } from "../../constants/urls";
-import { Link } from "react-router-dom";
+import {
+  HOME_URL,
+  LOGIN_URL,
+  REGISTER_URL,
+  PROFILE_URL,
+} from "../../constants/urls";
+import { Link, useNavigate } from "react-router-dom";
 import BurgerButton from "../BurgerButtom/BurgerButtom";
+import { logout } from "../../firebase/auth/auth-service";
+import { useUserContext } from "../../contexts/UserContext";
 
-export default function Navbar() {
+export function Navbar() {
+  const navigate = useNavigate();
   const [clicked, setClicked] = useState(false);
+  const { usuario, isLoadingUser } = useUserContext();
+
+  const handleLogout = async () => {
+    await logout(() => navigate(HOME_URL));
+  };
+
   const handleClick = () => {
     setClicked(!clicked);
   };
@@ -16,61 +30,100 @@ export default function Navbar() {
         <h2>
           Cartelera <span>Caracas</span>
         </h2>
+
         <div className={`links ${clicked ? "active" : ""}`}>
-          <Link className="link" to={HOME_URL}>
-            <span>HOME</span>
-          </Link>
-          <Link className="link" Link to={LOGIN_URL}>
-            <span>Iniciar sesión</span>
-          </Link>
-          
-          
-          <Link className="link" to={REGISTER_URL}>
-            <span>Registrarse</span>
-          </Link>
+          {!isLoadingUser && (
+            <ul className="menuList">
+              {!!usuario ? (
+                <>
+                  <li>
+                    <Link to={HOME_URL} className="link">
+                      <span>Inicio</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={PROFILE_URL}>
+                      
+                      <span>{usuario.name}</span>
+                    </Link>
+                  </li>
+
+                  <li className="menuItem">
+                    <button
+                      type="button"
+                      
+                      onClick={handleLogout}
+                    >
+                      <span className="logoutBtn">Salir</span>
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link to={HOME_URL} className="link">
+                      <span>Inicio</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={LOGIN_URL} className="link">
+                      <span>Iniciar sesión</span>
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to={REGISTER_URL} className="link">
+                      <span>Registrarse</span>
+                    </Link>
+                  </li>
+                </>
+              )}
+            </ul>
+          )}
         </div>
+
         <div className="burger">
           <BurgerButton clicked={clicked} handleClick={handleClick} />
         </div>
+
         <BgDiv className={`initial ${clicked ? " active" : ""}`}></BgDiv>
       </NavContenedor>
     </>
   );
 }
 
-
-//styles del componente navbar
 const NavContenedor = styled.nav`
   h2 {
     color: white;
-    font-weight: 400px;
+    font-weight: 400;
     font-size: 30px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    margin: 5px;
   }
+
   span {
     font-weight: bold;
     color: #ffffff;
-    /* font-size: 20px; */
   }
-  padding: 0.4rem;
-  background-color: #3333;
+  padding: 20px;
+  background-color: #781d1c;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 90px;
-
+  height: 100px;
   .link {
     color: white;
     text-decoration: none;
-    margin-right: 5rem;
+    margin-right: 40px;
   }
+
   .link :hover {
-    color: #5a0253;
+    color: #ffd33a;
   }
 
   .burger {
-    @media (min-width: 768px) {
+    @media (min-width: 700px) {
       display: none;
     }
   }
@@ -83,13 +136,13 @@ const NavContenedor = styled.nav`
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    transition: all 0.5s ease;
+    /* transition: all .5s ease; */
     .link {
       color: white;
       font-size: 2rem;
       display: block;
     }
-    @media (min-width: 768px) {
+    @media (min-width: 700px) {
       position: initial;
       margin: 0;
       .link {
@@ -117,17 +170,42 @@ const NavContenedor = styled.nav`
       color: #ffffff;
     }
   }
+
+  .menuList {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    justify-content: center;
+  }
+
+  .menuItem {
+    border-radius: 6px;
+    border: 1px solid transparent;
+  }
+
+  .logoutBtn {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #ffd33a;
+    background: none;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+  }
 `;
 
 const BgDiv = styled.div`
-  
-  background-color: #3333;
+  background-color: #222;
   position: absolute;
-  top: -700px;
-  left: -2000px;
+  top: -1000px;
+  left: -1000px;
   width: 100%;
   height: 100%;
   z-index: -1;
+  /* transition: all .6s ease ; */
 
   &.active {
     border-radius: 0 0 80% 0;
@@ -135,6 +213,5 @@ const BgDiv = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    
   }
 `;

@@ -12,9 +12,9 @@ import {
   export const signInWithGoogle = async ({ onSuccess, onFail }) => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      const { isNewUser } = getAdditionalUserInfo(result);
+      const { usuarioNuevo } = getAdditionalUserInfo(result);
   
-      if (isNewUser) {
+      if (usuarioNuevo) {
         const { uid, email, displayName } = result.user;
         await crearUsuario({
           uid,
@@ -37,7 +37,7 @@ import {
         onFail();
       }
   
-      console.error("FAILED SIGN IN WITH GOOGLE", {
+      console.error("Verificación fallida", {
         errorCode,
         errorMessage,
         email,
@@ -59,7 +59,7 @@ import {
         password
       );
   
-      await createUser({
+      await crearUsuario({
         ...restData,
         email,
         uid: firebaseResult.user.uid,
@@ -69,7 +69,7 @@ import {
         onSuccess();
       }
     } catch (error) {
-      console.error("REGISTER FAILED", { error });
+      console.error("Registro fallido", { error });
       if (onFail) {
         onFail();
       }
@@ -89,7 +89,7 @@ import {
         onSuccess();
       }
     } catch (error) {
-      console.error("LOGIN FAILED", { error });
+      console.error("Inicio fallido", { error });
   
       if (onFail) {
         onFail();
@@ -105,7 +105,7 @@ import {
         callback();
       }
     } catch (error) {
-      console.error("SIGN OUT FAILED", { error });
+      console.error("Cerrar sesión fallido", { error });
     }
   };
   

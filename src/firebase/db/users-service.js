@@ -13,7 +13,6 @@ import { db } from '../config'
 export const users_collection = "usuarios";
 
 export async function crearUsuario(data) {
-
   const { uid, ...restData } = data;
 
   if (uid) {

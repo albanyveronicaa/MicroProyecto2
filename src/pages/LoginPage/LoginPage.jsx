@@ -53,7 +53,7 @@ export function LoginPage() {
                   src="https://www.svgrepo.com/show/355037/google.svg"
                   alt=""
                 />
-                <span class="text">Continuar con Google</span>
+                <span>Continuar con Google</span>
               </div>
             </button>
           </div>
@@ -63,10 +63,9 @@ export function LoginPage() {
             y contraseña
           </p>
 
-          {/* EMAIL FIELD */}
           <div className={styles.inputContenedor}>
             <label htmlFor="email">
-              <span>Ingresa tu correo</span>
+              <span>Ingresa tu email</span>
             </label>
             <input
               type="email"
@@ -77,7 +76,6 @@ export function LoginPage() {
             />
           </div>
 
-          {/* PASSWORD FIELD */}
           <div className={styles.inputContenedor}>
             <label htmlFor="password">
               <span>Ingresa tu contraseña</span>
@@ -94,8 +92,6 @@ export function LoginPage() {
           <button type="submit" className={styles.submitButton}>
             Entrar
           </button>
-
-          
 
           <Link to={REGISTER_URL} className={styles.loginRedirect}>
             ¿No tienes una cuenta?{" "}

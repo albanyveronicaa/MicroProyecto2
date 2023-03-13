@@ -1,29 +1,26 @@
 import { onAuthStateChanged } from "firebase/auth";
 import React, { useContext, useEffect, useState } from "react";
 import { auth } from "../firebase/config";
-import { getPerfilUsuario } from "../firebase/db/users-service";
 
 export const UserContext = React.createContext({});
 
 export function UserContextProvider({ children }) {
-  const [user, setUser] = useState(null);
-
-  //para saber si el usuario está cargando
+  const [usuario, setUsuario] = useState(null);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
 
-  //para saber que usuario está iniciado
   useEffect(() => {
     onAuthStateChanged(auth, async (firebaseUser) => {
-      setIsLoadingUser(true);
+      console.log(firebaseUser);
 
-      if (firebaseUser && !user) {
-        const perfilUsuario = await getPerfilUsuario(firebaseUser.email);
-
-        setUser(perfilUsuario);
+      if (firebaseUser) {
+        setUsuario({
+          id: firebaseUser.uid,
+          email: firebaseUser.email,
+          name: firebaseUser.displayName,
+        });
       } else {
-        setUser(null);
+        setUsuario(null);
       }
-
       setIsLoadingUser(false);
     });
   }, []);
@@ -33,8 +30,8 @@ export function UserContextProvider({ children }) {
       value={{
         isLoadingUser,
         setIsLoadingUser,
-        user,
-        setUser,
+        usuario,
+        setUsuario,
       }}
     >
       {children}
